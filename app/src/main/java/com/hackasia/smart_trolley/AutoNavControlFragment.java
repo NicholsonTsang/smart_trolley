@@ -36,11 +36,7 @@ public class AutoNavControlFragment extends Fragment implements SensorEventListe
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         directionsensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         gravitysensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-/***
-        sensorManager.registerListener((SensorEventListener) this,accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener((SensorEventListener) this,directionsensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener((SensorEventListener) this,gravitysensor, SensorManager.SENSOR_DELAY_NORMAL);
-***/
+
         //setting onclick listener for the start button
         v.findViewById(R.id.startbtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +45,7 @@ public class AutoNavControlFragment extends Fragment implements SensorEventListe
                 sensorManager.registerListener((SensorEventListener) AutoNavControlFragment.this,directionsensor, SensorManager.SENSOR_DELAY_NORMAL);
                 sensorManager.registerListener((SensorEventListener) AutoNavControlFragment.this,gravitysensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-                TextView speed = (TextView)v.findViewById(R.id.speedvaluetxt);
+
             }
         });
 
@@ -68,6 +64,8 @@ public class AutoNavControlFragment extends Fragment implements SensorEventListe
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION){
             speed = sensorlistener.linearAccChange(sensorEvent);
+            TextView speedvalue = getView().findViewById(R.id.speedvalue);
+            speedvalue.setText(String.format("%.2f",speed));
             //Log.d("test", Double.toString(speed));
         }
         if(sensorEvent.sensor.getType() == Sensor.TYPE_GRAVITY)
@@ -76,7 +74,9 @@ public class AutoNavControlFragment extends Fragment implements SensorEventListe
             sensorlistener.mFieldChange(sensorEvent);
         if(sensorlistener.getGravity()!=null && sensorlistener.getMfield()!=null){
             direction = sensorlistener.directionCalculation();
-            Log.d("test", Double.toString(direction));
+            TextView degreevalue = getView().findViewById(R.id.degreevalue);
+            degreevalue.setText(String.format("%.1f",direction));
+            //Log.d("test", Double.toString(direction));
         }
 
     }
