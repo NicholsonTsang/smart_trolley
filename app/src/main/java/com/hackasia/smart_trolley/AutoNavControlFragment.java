@@ -70,6 +70,7 @@ public class AutoNavControlFragment extends Fragment implements SensorEventListe
             speed = sensorlistener.linearAccChange(sensorEvent);
             TextView speedvalue = getView().findViewById(R.id.speedvalue);
             speedvalue.setText(String.format("%.2f",speed));
+            sendMessage(String.format("%.1f",speed));
             //Log.d("test", Double.toString(speed));
         }
 
@@ -83,6 +84,8 @@ public class AutoNavControlFragment extends Fragment implements SensorEventListe
             direction = sensorlistener.directionCalculation();
             TextView degreevalue = getView().findViewById(R.id.degreevalue);
             degreevalue.setText(String.format("%.1f",direction));
+
+            sendMessage(String.format("%.1f",direction));
             //Log.d("test", Double.toString(direction));
         }
     }
