@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             private String stringData = null;
 
-
             @Override
             public void run() {
                 try {
